@@ -3,3 +3,5 @@
 *.out
 TrafficProblem.synctex.gz
 *.toc
+*.bbl
+*.blg
