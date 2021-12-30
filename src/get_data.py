@@ -3,16 +3,22 @@ import gzip
 import os
 from multiprocessing import Pool
 
-wait_queue = []
+wait_queue = []    # for Pool
 domain = "https://tisvcloud.freeway.gov.tw"
 parent_url = "/history/motc20/VD/2021122"
 
+'''
+@brief get the request from server.
+@param path The folder path where the downloaded file will be.
+@param day, hour, min The time that help it create file, the file name depends on time.
+@param url The file url you wanna download.
+'''
 def get_request(path: str, day: int, hour: int, min: int, url: str):
     print(url)
-    download_response = rq.get(url)
+    download_response = rq.get(url)    # use get method to download the file.
     print(download_response.status_code)
     
-    if(download_response.status_code == 200):
+    if(download_response.status_code == 200):    # if the status is correct, decompress the file.
         f_in = gzip.decompress(download_response.content).decode()
         with open(path + "/2021122" + str(day) + f"_{hour:02d}{min:02d}" + ".xml", 'w') as file:
             file.write(f_in)
